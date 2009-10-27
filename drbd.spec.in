@@ -222,6 +222,16 @@ uname -r | grep BOOT ||
 
 %changelog
 
+* Thu Oct 27 2009 12:30:41 +0200 Philipp Reisner <phil@linbit.com>
+- drbd (8.3.5-1)
+ * Fixed a regression introduced shortly before 8.3.3, which might
+   case a deadlock in DRBD's disconnect code path. (Bugz 258)
+ * Fixed drbdsetup X resume-io which is needed for the recovery
+   from the effects of broken fence-peer scripts. (Bugz 256)
+ * Do not reduce master score of a current Primary on connection loss,
+   to avoid unnecessary migrations
+ * Do not display the usage count dialog for /etc/inti.d/drbd status
+
 * Thu Oct  6 2009 14:32:15 +0200 Philipp Reisner <phil@linbit.com>
 - drbd (8.3.4-1)
  * Fixed a regression in the connector backport introduced with 8.3.3.

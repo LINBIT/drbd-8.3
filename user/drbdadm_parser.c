@@ -231,23 +231,10 @@ void range_check(const enum range_checks what, const char *name,
 		break;
 
 	case R_DP_VOLUME:
-		m_strtoll_range(value, 'k', name, DRBD_DP_VOLUME_MIN,
-				DRBD_DP_VOLUME_MAX);
-		break;
-
 	case R_DP_INTERVAL:
-		m_strtoll_range(value, 1, name, DRBD_DP_INTERVAL_MIN,
-				DRBD_DP_INTERVAL_MAX);
-		break;
-
 	case R_RS_THROTTLE_TH:
-		m_strtoll_range(value, 1, name, DRBD_RS_THROTTLE_TH_MIN,
-				DRBD_RS_THROTTLE_TH_MAX);
-		break;
-
 	case R_RS_HOLD_OFF_TH:
-		m_strtoll_range(value, 1, name, DRBD_RS_HOLD_OFF_TH_MIN,
-				DRBD_RS_HOLD_OFF_TH_MAX);
+		/* ignored anyways; emit deprecation warning? */
 		break;
 	}
 }

@@ -203,6 +203,18 @@ static void show_handler(struct drbd_option *od, unsigned short* tp);
 static void show_bit(struct drbd_option *od, unsigned short* tp);
 static void show_string(struct drbd_option *od, unsigned short* tp);
 
+// ignore things that used to be options, but are no-ops now
+static int conv_ignore(struct drbd_option *od, struct drbd_tag_list *tl, char* arg)
+	{ return NO_ERROR; };
+#if 0
+static void show_ignore(struct drbd_option *od, unsigned short* tp)
+	{ };
+# endif
+static int usage_ignore(struct drbd_option *option, char* str, int strlen)
+	{ return 0; };
+static void usage_xml_ignore(struct drbd_option *option)
+	{ };
+
 // sub functions for events_cmd
 static int print_broadcast_events(unsigned int seq, int, struct drbd_nl_cfg_reply *reply);
 static int w_connected_state(unsigned int seq, int, struct drbd_nl_cfg_reply *reply);
@@ -260,6 +272,11 @@ struct option wait_cmds_options[] = {
 
 #define EN(N,U,UN) \
 	conv_numeric, show_numeric, numeric_opt_usage, numeric_opt_xml, \
+	{ .numeric_param = { DRBD_ ## N ## _MIN, DRBD_ ## N ## _MAX, \
+		DRBD_ ## N ## _DEF ,U,UN  } }
+/* deprecated numeric, only present in "drbdsetup show", otherwise ignored. */
+#define DN(N,U,UN) \
+	conv_ignore, show_numeric, usage_ignore, usage_xml_ignore, \
 	{ .numeric_param = { DRBD_ ## N ## _MIN, DRBD_ ## N ## _MAX, \
 		DRBD_ ## N ## _DEF ,U,UN  } }
 #define EN_sndbuf(N,U,UN) \
@@ -356,10 +373,13 @@ struct drbd_cmd commands[] = {
 		 { "verify-alg", 'v',T_verify_alg,      ES },
 		 { "cpu-mask",'c',T_cpu_mask,           ES },
 		 { "use-rle",'R',T_use_rle,   EB },
-		 { "delay-probe-volume",'V',	T_dp_volume,	EN(DP_VOLUME,'k',"bytes") },
-		 { "delay-probe-interval",'I',	T_dp_interval,	EN(DP_INTERVAL,1,"1/10 seconds") },
-		 { "throttle-threshold",'T',	T_throttle_th,	EN(RS_THROTTLE_TH,1,"1/10 seconds") },
-		 { "hold-off-threshold",'H',	T_hold_off_th,	EN(RS_HOLD_OFF_TH,1,"1/10 seconds") },
+		 /* deprecated tags are hardcoded here, as they are no longer
+		  * used in current DRBD and would otherwise unnecessarily
+		  * clutter the generated struct definition */
+		 { "delay-probe-volume",'V',	71,	DN(DP_VOLUME,'k',"bytes") },
+		 { "delay-probe-interval",'I',	72,	DN(DP_INTERVAL,1,"1/10 seconds") },
+		 { "throttle-threshold",'T',	73,	DN(RS_THROTTLE_TH,1,"1/10 seconds") },
+		 { "hold-off-threshold",'H',	74,	DN(RS_HOLD_OFF_TH,1,"1/10 seconds") },
 		 CLOSE_OPTIONS }} }, },
 
 	{"new-current-uuid", P_new_c_uuid, F_CONFIG_CMD, {{NULL,

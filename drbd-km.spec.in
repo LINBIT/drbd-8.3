@@ -100,6 +100,10 @@ uname -r | grep BOOT ||
 
 
 %changelog
+* Tue Jul  8 2010 Lars Ellenberg <lars@linbit.com> - 8.3.8.1-1
+- Revert delay probes, they could potentially lead to stalled resync.
+  Feature is being re-implemented differently
+
 * Wed Jun  2 2010 Philipp Reisner <phil@linbit.com> - 8.3.8-1
 - New upstream release.
 

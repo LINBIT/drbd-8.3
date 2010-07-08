@@ -1,3 +1,10 @@
+drbd8 (2:8.3.8.1-0) unstable; urgency=low
+
+  * Revert delay probes, they could potentially lead to stalled resync.
+    Feature is being re-implemented differently
+
+ -- Lars Ellenberg <lars@linbit.com>  Thu,  8 Jul 2010 13:27:00 +0200
+
 drbd8 (2:8.3.8-0) unstable; urgency=low
 
   * New upstream release.

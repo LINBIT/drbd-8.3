@@ -2,6 +2,11 @@ Latest:
 ------
  For even more detail, use "git log" or visit http://git.drbd.org/.
 
+8.3.8.1 (api:88/proto:86-94)
+ * Revert delay probes, they could potentially lead to stalled resync.
+   Feature is being re-implemented differently
+ * DRBD ocf resource agent now treats hostnames case insensitive
+
 8.3.8 (api:88/proto:86-94)
 --------
  * Do not expose failed local READs to upper layers, regression introduced

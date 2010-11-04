@@ -1,3 +1,9 @@
+drbd8 (2:8.3.9-2) unstable; urgency=low
+
+  * Fixed a performance regression of 8.3.9. It slowed down synchonous writes (DBs).
+
+ -- Philipp Reisner <phil@linbit.com>  Thu,  4 Nov 2010 10:45:01 +0200
+
 drbd8 (2:8.3.9-0) unstable; urgency=low
 
   * New upstream release.

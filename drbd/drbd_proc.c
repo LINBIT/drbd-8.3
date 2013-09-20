@@ -298,7 +298,7 @@ STATIC int drbd_seq_show(struct seq_file *seq, void *v)
 		    mdev->state.conn == C_VERIFY_T)
 			drbd_syncer_progress(mdev, seq);
 
-		if (proc_details >= 1 && get_ldev_if_state(mdev, D_FAILED)) {
+		if (proc_details >= 1 && get_ldev(mdev)) {
 			lc_seq_printf_stats(seq, mdev->resync);
 			lc_seq_printf_stats(seq, mdev->act_log);
 			put_ldev(mdev);

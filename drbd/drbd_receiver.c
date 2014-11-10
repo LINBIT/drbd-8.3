@@ -4929,9 +4929,14 @@ int drbd_asender(struct drbd_thread *thi)
 
 	sprintf(current->comm, "drbd%d_asender", mdev_to_minor(mdev));
 
+#if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,11)
+	current->policy = SCHED_RR;  /* Make this a realtime task! */
+	current->rt_priority = 2;    /* more important than all other tasks */
+#else
 	rv = sched_setscheduler(current, SCHED_RR, &param);
 	if (rv < 0)
 		dev_err(DEV, "drbd_asender: ERROR set priority, ret=%d\n", rv);
+#endif
 
 	while (get_t_state(thi) == Running) {
 		drbd_thread_current_set_cpu(mdev);

@@ -100,6 +100,9 @@ uname -r | grep BOOT ||
 
 
 %changelog
+* Mon Nov 10 2014 Lars Ellenberg <lars@linbit.com> - 8.3.16-2
+- Fix build and compat issues with recent distro kernel upgrades
+
 * Fri Sep 20 2013 Philipp Reisner <phil@linbit.com> - 8.3.16-1
 - New upstream release.
 

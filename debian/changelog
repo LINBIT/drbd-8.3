@@ -1,3 +1,9 @@
+drbd8 (2:8.3.16-2) unstable; urgency=low
+
+  * Fix build and compat issues with recent distro kernel upgrades
+
+ -- Lars Ellenberg <lars@linbit.com>  Mon, 10 Nov 2014 16:13:38 +0100
+
 drbd8 (2:8.3.16-0) unstable; urgency=low
 
   * New upstream release.
